@@ -30,7 +30,10 @@ def stop():
 def refresh():
     global laufend, startzeit, laufzeit
     if laufend == True:
-        laufend = True;
+        startzeit = 0
+        laufzeit = 0
+        startzeit = int(time.time()) - laufzeit
+        tick()
     if laufend == False:
         startzeit = 0
         laufzeit = 0
@@ -63,4 +66,4 @@ fenster.mainloop()
 # - **Start**: Beim Klicken auf "Start" beginnt die Stoppuhr, die vergangene Zeit zu messen.
 # - **Stop**: Beim Klicken auf "Stop" wird die Messung angehalten, und die vergangene Zeit bleibt sichtbar.
 # - **Anzeige der Zeit**: Die Zeit wird im Format Stunden:Minuten:Sekunden angezeigt.
-#   **Refresh setzt alle Werte auf Null
+#   **Refresh während der Messung, misst erneut von Null an, Refresh nach einem Stopp setzt die Werte auf null und zählt nicht erneut
