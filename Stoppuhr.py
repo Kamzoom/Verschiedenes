@@ -1,11 +1,16 @@
-
 import time
-from tkinter import *
+import tkinter as tk
 
-fenster = Tk()
+fenster = tk.Tk()
 fenster.wm_title("Stoppuhr")
+# Setze die Fenstergröße auf 800x500 Pixel
+fenster.geometry("400x390")
 
-uhr = Label(master=fenster, font=('Arial', 70), fg='white', width=10, height=3)
+# Verhindere das Ändern der Fenstergröße
+# Setze sowohl die Breite (width) als auch die Höhe (height) auf False
+fenster.resizable(width=False, height=False)
+
+uhr = tk.Label(master=fenster, font=('Arial', 70), fg='white', width=10, height=3)
 uhr.pack()
 
 # Variablen zur Steuerung der Stoppuhr
@@ -26,7 +31,6 @@ def stop():
         laufend = False
         laufzeit = int(time.time()) - startzeit
 
-
 def refresh():
     global laufend, startzeit, laufzeit
     if laufend == True:
@@ -39,13 +43,16 @@ def refresh():
         laufzeit = 0
     uhr.config(text=f'{laufzeit // 3600}:{(laufzeit // 60) % 60}:{laufzeit % 60}')
 
-startButton = Button(fenster, height=3, width=10, text="Start",bg="blue", command=start)
-startButton.pack()
-stopButton = Button(fenster, height=3, width=10, text="Stop", command=stop)
-stopButton.pack()
 
-restartButton = Button(fenster, height=3, width=10, text="Refresh", command=refresh)
-restartButton.pack()
+
+startButton = tk.Button(fenster, height=3, width=11, text="Start", bg="blue", command=start)
+startButton.pack(side=tk.LEFT)
+
+stopButton = tk.Button(fenster, height=3, width=11, text="Stop", command=stop)
+stopButton.pack(side=tk.LEFT)
+
+restartButton = tk.Button(fenster, height=3, width=11, text="Refresh", command=refresh)
+restartButton.pack(side=tk.RIGHT)
 
 def tick():
     global startzeit, laufzeit
@@ -60,10 +67,3 @@ def tick():
 
 tick()
 fenster.mainloop()
-
-# In dieser Version werden folgende Funktionalitäten bereitgestellt:
-#
-# - **Start**: Beim Klicken auf "Start" beginnt die Stoppuhr, die vergangene Zeit zu messen.
-# - **Stop**: Beim Klicken auf "Stop" wird die Messung angehalten, und die vergangene Zeit bleibt sichtbar.
-# - **Anzeige der Zeit**: Die Zeit wird im Format Stunden:Minuten:Sekunden angezeigt.
-#   **Refresh während der Messung, misst erneut von Null an, Refresh nach einem Stopp setzt die Werte auf null und zählt nicht erneut
