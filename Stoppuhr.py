@@ -29,6 +29,8 @@ def stop():
 
 def refresh():
     global laufend, startzeit, laufzeit
+    if laufend == True:
+        laufend = True;
     if laufend == False:
         startzeit = 0
         laufzeit = 0
